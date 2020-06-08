@@ -1,0 +1,24 @@
+{
+  "name": "@cgignite/ignite-sequelize",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cybergroup-Research/ignite-sequelize.git"
+  },
+  "author": "Bijay Shah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cybergroup-Research/ignite-sequelize/issues"
+  },
+  "node-red": {
+    "nodes": {
+      "sequelize": "index.js"
+    }
+  },
+  "homepage": "https://github.com/Cybergroup-Research/ignite-sequelize#readme"
+}

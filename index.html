@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sequelize',{
+        category: 'cyg',
+        color: '#d24714',
+        defaults: {
+            name: {value:""},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "web.png",
+        label: function() {
+            return this.name||"sequelize";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sequelize">
+    <div class="form-row">
+        <label for="node-input-name">Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sequelize">
+    <p>A node that resolves an Odata Complaint API (URL) into sql statements</p>
+</script>
