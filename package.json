@@ -1,6 +1,6 @@
 {
   "name": "@cgignite/ignite-sequelize",
-  "version": "2.0.1",
+  "version": "1.0.2",
   "description": "Node-RED node to query various of database",
   "author": {
     "name": "bijay shah",
