@@ -1,47 +1,74 @@
 const Sequelize = require('sequelize');
+const mustache = require('mustache');
 module.exports = function(RED) {
-  function ignitesequelizeNode(config) {
-      RED.nodes.createNode(this,config);
+  'use strict';
+  let pgPool = null;
 
-      this.database = config.database;
-      this.host = config.host;
-      this.port = config.port;
-      this.ssl = config.ssl;
-      this.dialect = config.dialect;
-      if (this.credentials) {
-        this.username = this.credentials.username;
-        this.password = this.credentials.password;
+  function ignitesequelizeDBNode(n) {
+    let poolInstance = null;
+    const node = this;
+
+    RED.nodes.createNode(this, n);
+    node.name = n.name;
+    node.host = n.host;
+    node.port = n.port;
+    node.database = n.database;
+    node.dialect = n.dialect;
+    node.ssl = n.ssl;
+    if (node.credentials) {
+      node.user = node.credentials.user;
+      node.password = node.credentials.password;
+    }
+  }
+
+  RED.nodes.registerType('ignitesequelizeDB', ignitesequelizeDBNode, {
+    credentials: {
+      user: {type: 'text'},
+      password: {type: 'password'}
+    }
+  });
+
+  function ignitesequelizeNode(config) {
+    const node = this;
+    RED.nodes.createNode(this, config);
+    node.config = RED.nodes.getNode(config.ignitesequelizeDB);
+    node.on('input', function(msg) {
+      var sequelize = new Sequelize( node.config.database, node.config.user,  node.config.password, {
+        host:  node.config.host,
+        port:  node.config.port,
+        dialect:  node.config.dialect,
+        dialectOptions: {
+          ssl:  node.config.ssl
+        }
+      });
+      var query = "";
+      if(msg.provider === "ignite-odata" && msg.payload.queries[this.dialect])
+      {
+        query = msg.payload.queries[this.dialect];
       }
-      var node = this;
-      node.on('input', function(msg) {
-        var sequelize = new Sequelize(node.database,node.username, node.password, {
-          host: node.host,
-          port: node.port,
-          dialect: this.dialect,
-          dialectOptions: {
-            ssl: node.ssl
-          }
-        });
-        var query = "";
-        if(msg.provider === "ignite-odata" && msg.payload.queries[this.dialect])
-        {
-          query = msg.payload.queries[this.dialect];
+      else
+      {
+        if(config.usepayload){
+          query = msg.payload;
         }
         else
         {
-          query = msg.payload;
+          query = mustache.render(config.query, {
+            msg: msg
+          });
         }
-        sequelize.query(query)
-        .then(([results, metadata])  => {
-          msg.payload = results;
-          msg.metadata = metadata;
-          node.send(msg);
-        }, error=>{
-          msg.payload = [];
-          msg.error = error;
-          node.send(msg);
-        });
+      }
+      sequelize.query(query)
+      .then(([results, metadata])  => {
+        msg.payload = results;
+        msg.metadata = metadata;
+        node.send(msg);
+      }, error=>{
+        msg.payload = [];
+        msg.error = error;
+        node.send(msg);
       });
+    });
   }
   RED.nodes.registerType("ignite-sequelize",ignitesequelizeNode,{
     credentials: {
@@ -49,4 +76,4 @@ module.exports = function(RED) {
       password: {type: 'password'}
     }
   });
-}
+};
