@@ -1,6 +1,6 @@
 {
   "name": "@cgignite/ignite-sequelize",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Node-RED node to query various of database",
   "author": {
     "name": "bijay shah",
@@ -12,7 +12,7 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.12",
     "tedious": "^8.3.0",
-    "mustache": "^4.0.1" 
+    "mustache": "^4.0.1"
   },
   "repository": {
     "type": "git",
