@@ -42,9 +42,9 @@ module.exports = function(RED) {
         }
       });
       var query = "";
-      if(msg.provider === "ignite-odata" && msg.payload.queries[this.config.dialect])
+      if(msg.provider === "ignite-odata" && msg.payload[this.config.dialect])
       {
-        query = msg.payload.queries[this.config.dialect];
+        query = msg.payload[this.config.dialect];
       }
       else
       {
