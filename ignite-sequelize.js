@@ -4,7 +4,7 @@ module.exports = function(RED) {
   'use strict';
   let pgPool = null;
 
-  function ignitesequelizeDBNode(n) {
+  function databaseNode(n) {
     let poolInstance = null;
     const node = this;
 
@@ -21,7 +21,7 @@ module.exports = function(RED) {
     }
   }
 
-  RED.nodes.registerType('ignitesequelizeDB', ignitesequelizeDBNode, {
+  RED.nodes.registerType('database', databaseNode, {
     credentials: {
       user: {type: 'text'},
       password: {type: 'password'}
@@ -31,7 +31,7 @@ module.exports = function(RED) {
   function ignitesequelizeNode(config) {
     const node = this;
     RED.nodes.createNode(this, config);
-    node.config = RED.nodes.getNode(config.ignitesequelizeDB);
+    node.config = RED.nodes.getNode(config.database);
     node.on('input', function(msg) {
       var sequelize = new Sequelize( node.config.database, node.config.user,  node.config.password, {
         host:  node.config.host,
@@ -70,7 +70,7 @@ module.exports = function(RED) {
       });
     });
   }
-  RED.nodes.registerType("ignite-sequelize",ignitesequelizeNode,{
+  RED.nodes.registerType("sequelize",ignitesequelizeNode,{
     credentials: {
       username: {type: 'text'},
       password: {type: 'password'}

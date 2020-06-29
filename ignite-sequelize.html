@@ -1,4 +1,4 @@
-<script type="text/x-red" data-template-name="ignitesequelizeDB">
+<script type="text/x-red" data-template-name="database">
   <div class="form-row">
     <label for="node-config-input-name"><i class="fa fa-tag"></i> <span>Name</span></label>
     <input type="text" id="node-config-input-name" placeholder="name">
@@ -11,9 +11,9 @@
       <div class="form-row">
         <label for="node-config-input-dialect"><i class="icon-tag"></i>  <span>Dialect</span></label>
         <select type="select" id="node-config-input-dialect" placeholder="Dialect">
-          <option value="postgres">PostgresSQL</option>
+          <option value="postgres">PostgreSQL</option>
           <option value="mysql">MySQL</option>
-          <option value="mssql">MSQL</option>
+          <option value="mssql">MS SQL Server</option>
         </select>
       </div>
       <div class="form-row">
@@ -44,7 +44,7 @@
   </div>
 </script>
 <script type="text/javascript">
-RED.nodes.registerType('ignitesequelizeDB', {
+RED.nodes.registerType('database', {
   category: "config",
   color: "#336791",
   defaults: {
@@ -91,13 +91,13 @@ RED.nodes.registerType('ignitesequelizeDB', {
   }
 });
 </script>
-<script type="text/x-red" data-template-name="ignite-sequelize">
+<script type="text/x-red" data-template-name="sequelize">
   <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i> <span>Name</span></label>
     <input type="text" id="node-input-name" placeholder="name"> </div>
   <div class="form-row">
-    <label for="node-input-ignitesequelizeDB"><i class="fa fa-server"></i> <span>Server</span></label>
-    <input type="text" id="node-input-ignitesequelizeDB">
+    <label for="node-input-database"><i class="fa fa-server"></i> <span>Server</span></label>
+    <input type="text" id="node-input-database">
   </div>
   <div class="form-row">
     <input type="checkbox" id="node-input-usepayload" style="display: inline-block; width: auto; vertical-align: top;">
@@ -111,7 +111,7 @@ RED.nodes.registerType('ignitesequelizeDB', {
   </div>
 </script>
 <script type="text/javascript">
-RED.nodes.registerType("ignite-sequelize", {
+RED.nodes.registerType("sequelize", {
   category: "storage",
   color: '#336791',
   defaults: {
@@ -124,8 +124,8 @@ RED.nodes.registerType("ignite-sequelize", {
     query: {
       value: "SELECT * FROM ;"
     },
-    ignitesequelizeDB: {
-      type: "ignitesequelizeDB",
+    database: {
+      type: "database",
       required: true
     },
     output: {
@@ -139,7 +139,7 @@ RED.nodes.registerType("ignite-sequelize", {
   icon: "postgres.png",
   align: "left",
   label: function() {
-    return this.name || "ignite-sequelize";
+    return this.name || "sequelize";
   },
   labelStyle: function() {
     return this.name ? "node_label_italic" : "";
@@ -157,8 +157,8 @@ RED.nodes.registerType("ignite-sequelize", {
   }
 });
 </script>
-<script type="text/x-red" data-help-name="ignite-sequelize">
-  <p>ignite-sequelize is a Node-RED node allowing basic access to MSSql/MySQL,Postgres database.</p>
+<script type="text/x-red" data-help-name="sequelize">
+  <p>ignite-sequelize is a Node-RED node allowing basic access to MS Sql/ My SQL,Postgres database.</p>
   <p>ignite-sequelize sets up a console to execute queries against the configured database.
   </p>
   <p><code>msg.payload</code> will contain the result object of the query. It has the following properties:
