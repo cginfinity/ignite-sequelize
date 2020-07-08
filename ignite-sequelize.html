@@ -24,7 +24,7 @@
       </div>
       <div class="form-row">
         <label for="node-config-input-database"><i class="fa fa-database"></i> <span>Database</span></label>
-        <input type="text" id="node-config-input-database" placeholder="postgres">
+        <input type="text" id="node-config-input-database" placeholder="database">
       </div>
       <div class="form-row">
         <input type="checkbox" id="node-config-input-ssl" style="display: inline-block; width: auto; vertical-align: top;">
@@ -34,11 +34,11 @@
     <div id="ignite-sequelize-config-tab-security" style="display: none;">
       <div class="form-row">
         <label for="node-config-input-user"><i class="fa fa-user"></i> <span>User</span></label>
-        <input type="text" id="node-config-input-user" placeholder="postgres">
+        <input type="text" id="node-config-input-user" placeholder="User">
       </div>
       <div class="form-row">
         <label for="node-config-input-password"><i class="fa fa-lock"></i> <span>Password</span></label>
-        <input type="password" id="node-config-input-password" placeholder="postgres">
+        <input type="password" id="node-config-input-password" placeholder="Password">
       </div>
     </div>
   </div>
@@ -136,7 +136,7 @@ RED.nodes.registerType("sequelize", {
     }
   },
   inputs: 1,
-  icon: "postgres.png",
+  icon: 'font-awesome/fa-database',
   align: "left",
   label: function() {
     return this.name || "sequelize";
@@ -158,7 +158,7 @@ RED.nodes.registerType("sequelize", {
 });
 </script>
 <script type="text/x-red" data-help-name="sequelize">
-  <p>ignite-sequelize is a Node-RED node allowing basic access to MS Sql/ My SQL,Postgres database.</p>
+  <p>ignite-sequelize is a Node-RED module allowing basic access to Mssql, Mysql, Postgres database.</p>
   <p>ignite-sequelize sets up a console to execute queries against the configured database.
   </p>
   <p><code>msg.payload</code> will contain the result object of the query. It has the following properties:

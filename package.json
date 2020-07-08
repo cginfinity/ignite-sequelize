@@ -1,11 +1,16 @@
 {
   "name": "@cgignite/ignite-sequelize",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Node-RED node to query various of database",
   "author": {
     "name": "bijay shah",
     "email": "bijay.shah@cygrp.cmo"
   },
+  "contributors": [
+    {
+      "name": "Ravi Kant Sharma"
+    }
+  ],
   "dependencies": {
     "mysql2": "^2.1.0",
     "pg": "^7.18.2",
