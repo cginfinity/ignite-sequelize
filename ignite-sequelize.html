@@ -17,6 +17,13 @@
         </select>
       </div>
       <div class="form-row">
+        <label for="node-config-input-url"><i class="fa fa-database"></i> <span>Url</span></label>
+        <input type="text" id="node-config-input-url" placeholder="url">
+      </div>
+      <div class="form-row">
+        <span>OR</span>
+      </div>
+      <div class="form-row">
         <label for="node-config-input-host"><i class="fa fa-server"></i> <span>Host</span></label>
         <input class="input-append-left" type="text" id="node-config-input-host" placeholder="localhost" style="width: 40%;">
         <label for="node-config-input-port" style="margin-left: 10px; width: 30px; "> <span>Port</span></label>
@@ -27,18 +34,16 @@
         <input type="text" id="node-config-input-database" placeholder="database">
       </div>
       <div class="form-row">
-        <input type="checkbox" id="node-config-input-ssl" style="display: inline-block; width: auto; vertical-align: top;">
-        <label for="node-config-input-ssl" style="width: auto;"> <span>SSL</span></label>
-      </div>
-    </div>
-    <div id="ignite-sequelize-config-tab-security" style="display: none;">
-      <div class="form-row">
         <label for="node-config-input-user"><i class="fa fa-user"></i> <span>User</span></label>
         <input type="text" id="node-config-input-user" placeholder="User">
       </div>
       <div class="form-row">
         <label for="node-config-input-password"><i class="fa fa-lock"></i> <span>Password</span></label>
         <input type="password" id="node-config-input-password" placeholder="Password">
+      </div>
+      <div class="form-row">
+        <input type="checkbox" id="node-config-input-ssl" style="display: inline-block; width: auto; vertical-align: top;">
+        <label for="node-config-input-ssl" style="width: auto;"> <span>SSL</span></label>
       </div>
     </div>
   </div>
@@ -49,13 +54,16 @@ RED.nodes.registerType('database', {
   color: "#336791",
   defaults: {
     name: { value: "" },
-    host: { value: "127.0.0.1", required: true },
-    port: { value: 5432, required: true },
-    database: { value: "postgres", required: true },
-    dialect : {value : "postgres", required: true},
+    host: { value: "127.0.0.1"},
+    port: { value: 5432},
+    database: { value: "postgres",},
+    dialect : {value : "postgres"},
     ssl: { value: false },
   },
   credentials: {
+    url: {
+      type: "text"
+    },
     user: {
       type: "text"
     },
@@ -64,9 +72,6 @@ RED.nodes.registerType('database', {
     }
   },
   label: function() {
-    if(!this.name) {
-      this.name = this.credentials.user + "@" + this.host + ":" + this.port + "/" + this.database;
-    }
     return this.name;
   },
   labelStyle: function() {
@@ -84,10 +89,6 @@ RED.nodes.registerType('database', {
       id: "ignite-sequelize-config-tab-connection",
       label: "Connection"
     });
-    tabs.addTab({
-      id: "ignite-sequelize-config-tab-security",
-      label: "Security"
-    });
   }
 });
 </script>
@@ -101,7 +102,7 @@ RED.nodes.registerType('database', {
   </div>
   <div class="form-row">
     <input type="checkbox" id="node-input-usepayload" style="display: inline-block; width: auto; vertical-align: top;">
-    <label for="node-input-usepayload" style="width: auto;"> <span>Use Query From Payload</span></label>
+    <label for="node-input-us epayload" style="width: auto;"> <span>Use Query From Payload</span></label>
   </div>
   <div class="form-row" style="position: relative; margin-bottom: 0px;">
     <label for="node-input-query"><i class="fa fa-file-code-o"></i> <span>Query</span></label>
@@ -158,7 +159,7 @@ RED.nodes.registerType("sequelize", {
 });
 </script>
 <script type="text/x-red" data-help-name="sequelize">
-  <p>ignite-sequelize is a Node-RED module allowing basic access to Mssql, Mysql, Postgres database.</p>
+  <p>ignite-sequelize is a node module allowing basic access to Mssql, Mysql, Postgres database.</p>
   <p>ignite-sequelize sets up a console to execute queries against the configured database.
   </p>
   <p><code>msg.payload</code> will contain the result object of the query. It has the following properties:

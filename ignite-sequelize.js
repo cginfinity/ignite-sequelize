@@ -16,6 +16,7 @@ module.exports = function(RED) {
     node.dialect = n.dialect;
     node.ssl = n.ssl;
     if (node.credentials) {
+      node.url = node.credentials.url
       node.user = node.credentials.user;
       node.password = node.credentials.password;
     }
@@ -23,6 +24,7 @@ module.exports = function(RED) {
 
   RED.nodes.registerType('database', databaseNode, {
     credentials: {
+      url: {type: 'text'},
       user: {type: 'text'},
       password: {type: 'password'}
     }
@@ -33,14 +35,26 @@ module.exports = function(RED) {
     RED.nodes.createNode(this, config);
     node.config = RED.nodes.getNode(config.database);
     node.on('input', function(msg) {
-      var sequelize = new Sequelize( node.config.database, node.config.user,  node.config.password, {
-        host:  node.config.host,
-        port:  node.config.port,
-        dialect:  node.config.dialect,
-        dialectOptions: {
-          ssl:  node.config.ssl
-        }
-      });
+      var sequelize;
+      if(node.config.url)
+      {
+        sequelize = new Sequelize( node.config.url, {
+          dialect:  node.config.dialect,
+          dialectOptions: {
+            ssl:  node.config.ssl
+          }
+        });
+      }
+      else{
+        sequelize = new Sequelize( node.config.database, node.config.user,  node.config.password, {
+          host:  node.config.host,
+          port:  node.config.port,
+          dialect:  node.config.dialect,
+          dialectOptions: {
+            ssl:  node.config.ssl
+          }
+        });
+      }
       var query = "";
       if(msg.provider === "ignite-odata" && msg.payload[this.config.dialect])
       {
@@ -72,6 +86,7 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType("sequelize",ignitesequelizeNode,{
     credentials: {
+      url: {type: 'text'},
       username: {type: 'text'},
       password: {type: 'password'}
     }
