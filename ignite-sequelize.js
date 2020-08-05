@@ -86,7 +86,7 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType("sequelize",ignitesequelizeNode,{
     credentials: {
-      url: {type: 'text'},
+      url: {type: 'password'},
       username: {type: 'text'},
       password: {type: 'password'}
     }
