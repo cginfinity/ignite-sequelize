@@ -42,7 +42,8 @@ module.exports = function(RED) {
           dialect:  node.config.dialect,
           dialectOptions: {
             ssl:  node.config.ssl
-          }
+          },
+          logging : false
         });
       }
       else{
@@ -52,7 +53,8 @@ module.exports = function(RED) {
           dialect:  node.config.dialect,
           dialectOptions: {
             ssl:  node.config.ssl
-          }
+          },
+          logging : false
         });
       }
       var query = "";
