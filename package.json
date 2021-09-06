@@ -1,14 +1,15 @@
 {
   "name": "@cgignite/ignite-sequelize",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "node to query various of database",
   "author": {
     "name": "bijay shah",
-    "email": "bijay.shah@cygrp.cmo"
+    "email": "bijay.shah@cygrp.com"
   },
   "contributors": [
     {
-      "name": "Ravi Kant Sharma"
+      "name": "Ravi Kant Sharma",
+      "email": "ravikantsharma2169@gmail.com"
     }
   ],
   "dependencies": {
